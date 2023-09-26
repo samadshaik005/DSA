@@ -237,13 +237,41 @@ class LinkedList {
         }
     }
 
-    public void mergeTwoLinkedLists(Node head1 ,Node head2){
-        Node temp1=head1;
-        Node temp2=head2;
-        Node prev=null;
-        while(temp1!=null && temp2!=null){
-            
+    public Node mergeTwoLinkedListsinAlternativePositions(Node head1, Node head2) {
+        if (head1 == null) return head2;
+        if (head2 == null) return head1;
+        Node temp1 = head1;
+        Node temp2 = head2;
+        while (temp1 != null && temp2 != null) {
+            Node curr1 = temp1.next;
+            Node curr2 = temp2.next;
+
+            temp1.next = temp2;
+            temp2.next = curr1;
+            temp1 = curr1;
+            temp2 = curr2;
         }
+        return head1;
+    }
+
+    public void removeNodeWithoutUsingHead(Node tempnode) {
+        //check node is not lastnode
+        if (tempnode != null && tempnode.next != null) {
+            System.out.println("we cannot delete lastnode without header");
+        }
+        tempnode.data = tempnode.next.data;
+        tempnode.next = tempnode.next.next;
+    }
+
+    public void countNodesinCircularList() {
+        //here we know that its alredy circularlist ,so no need to use fastpointer and slowpointer
+        Node temp = head.next;
+        int count = 1;
+        while (temp!=null && temp != head) {
+            temp = temp.next;
+            count++;
+        }
+        System.out.println(count);
     }
 }
 
@@ -254,11 +282,7 @@ public class LinkedListMain {
         //  list.insertAtfront(1);
         list.insertAtEnd(10);
         list.insertAtEnd(20);
-        list.insertAtEnd(20);
-        list.insertAtEnd(20);
         list.insertAtEnd(30);
-        list.insertAtEnd(40);
-        list.insertAtEnd(40);
         list.insertAtEnd(40);
         list.insertAtEnd(50);
 
